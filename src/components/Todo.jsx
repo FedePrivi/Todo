@@ -3,6 +3,7 @@ const Todo = (props) => {
     const {nombre, descripcion, estado, prioridad} = props.todo
 
     
+    
   return (
     <>
         {/* <h2>{props.todo.nombre}</h2> */}

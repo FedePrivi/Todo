@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Formulario from "./Formulario"
 import  Todo  from "./Todo"
 
@@ -7,7 +7,17 @@ const TodoList = () => {
 
   const [todos, setTodos] = useState([])
 
+ useEffect(() => {
+    if (localStorage.getItem("Todos")) {
+      setTodos(JSON.parse(localStorage.getItem("Todos")))  
+    }
+ },[])
 
+ useEffect(() => {
+    localStorage.setItem("Todos" , JSON.stringify(todos))
+ }, [todos]) //este useEffect se ejecuta cada vez que se modifican los todos (el array con cada todo)
+
+ 
 
   const agregarTodo = (todo) => {
     // console.log(todo);

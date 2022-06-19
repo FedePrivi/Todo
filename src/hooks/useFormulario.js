@@ -8,7 +8,7 @@ export const useFormulario = (initialState = {}) => {
 
     const handleChange = (e) => {
         const { name, value, checked, type } = e.target
-        // console.log([name]);
+        // console.log([value]);
         setInputs((old) => ({
             ...old,
             [name]: type === "checkbox" ? checked : value
