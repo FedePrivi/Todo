@@ -1,7 +1,7 @@
 
-import { useState } from "react"
 import Swal from 'sweetalert2'
 import { v4 as uuidv4 } from 'uuid';
+import { useFormulario } from "../hooks/useFormulario";
 
 
 const Formulario = (props) => {
@@ -9,18 +9,25 @@ const Formulario = (props) => {
 // console.log(props);
   
     const initialState = {
-        nombre: 'todo 1',
-        descripcion:'descripcion 1',
+        nombre: '',
+        descripcion:'',
         estado:'pendiente',
         prioridad: false
     }
-    const [todo, setTodo] = useState(initialState);
+
+    // const [todo, setTodo] = useState(initialState);  lo saco porque lo traigo del hook personalizado de useFormulario.js y simplemente pongo:
+
+    const [inputs, handleChange, reset] = useFormulario(initialState)
+
+
 
     // console.log(useState(initialState)[0]);
     // console.log(todo);
     // console.log(todo.estado);
 
-    const {nombre, descripcion, estado, prioridad} = todo;
+    const {nombre, descripcion, estado, prioridad} =  inputs; //todo;
+
+
     const handleSubmit = (e) => {
         e.preventDefault()   
         // console.log(todo);
@@ -60,21 +67,18 @@ const Formulario = (props) => {
             id: uuidv4(),
         })
 
-        setTodo(initialState)
-        // console.log(todo);
+        //setTodo(initialState) //es simplemente para resetear el formulario al enviarlo
+                                //pero lo saco porque traigo del hook personalizado en useFoormulario la funcion:
+                                // console.log(todo);
+    
+        reset()
 
     }
 
 
-    const handleChange = (e) => {
-        const {name, value, checked, type} = e.target
-        // console.log([name]);
-        setTodo((old) => ({
-            ...old,
-            [name] : type === "checkbox" ? checked : value
-            
-        }))
-    }
+//    cortamos el handleChange y lo pasamos al hook useFormulario.js pero en este caso lo estamos llamando en los elementos jsx.
+
+
 
 
  return (
@@ -88,7 +92,7 @@ const Formulario = (props) => {
               name="nombre"
               placeholder="Ingrese todo nombre"
               id="nombre"
-              value={nombre} //value={todo.nombre} pero podemos colocar solo nombre porque hicimos la destructuracion del todo en la linea...
+              value={nombre} //value={todo.nombre} pero podemos colocar solo nombre porque hicimos la destructuracion del todo en la linea 28
               onChange={handleChange}
             />
 

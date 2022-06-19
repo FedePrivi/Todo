@@ -10,7 +10,7 @@ const TodoList = () => {
 
 
   const agregarTodo = (todo) => {
-    console.log(todo);
+    // console.log(todo);
     
     setTodos((old) => [...old, todo])
     
